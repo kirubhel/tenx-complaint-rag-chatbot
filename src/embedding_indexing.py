@@ -10,7 +10,8 @@ from sentence_transformers import SentenceTransformer
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # 1. Load cleaned complaints
-df = pd.read_csv('../data/filtered_complaints.csv')
+df = pd.read_csv('data/filtered_complaints.csv')
+
 
 # 2. Initialize text splitter
 text_splitter = RecursiveCharacterTextSplitter(
