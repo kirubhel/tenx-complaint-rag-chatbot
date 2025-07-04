@@ -1,0 +1,10 @@
+# requirements.txt
+pandas
+matplotlib
+tqdm
+scikit-learn
+sentence-transformers
+faiss-cpu
+langchain
+notebook
+ipywidgets

@@ -5,3 +5,5 @@ __pycache__/
 .env
 vector_store/
 data/filtered_complaints.csv
+data/complaints.csv
+venv/
