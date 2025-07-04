@@ -32,3 +32,48 @@ def retrieve_relevant_chunks(question, k=5):
         })
     
     return retrieved_chunks
+
+
+def build_prompt(question, context_chunks):
+    context = "\n---\n".join([chunk["text"] for chunk in context_chunks])
+    prompt = f"""You are a financial analyst assistant for CrediTrust.
+Your task is to answer questions based on real customer complaints.
+Use only the context provided below. If unsure, say so.
+
+Context:
+{context}
+
+Question:
+{question}
+
+Answer:"""
+    return prompt
+
+# step 3
+from transformers import pipeline
+
+# Load local model pipeline
+qa_pipeline = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2", max_new_tokens=200)
+
+def generate_answer(prompt):
+    return qa_pipeline(prompt)[0]["generated_text"]
+
+#step 4
+
+test_questions = [
+    "Why are customers unhappy with Buy Now, Pay Later?",
+    "What are the major issues in credit card services?",
+    "What complaints are common in money transfers?"
+]
+
+for question in test_questions:
+    chunks = retrieve_relevant_chunks(question)
+    prompt = build_prompt(question, chunks)
+    answer = generate_answer(prompt)
+
+    print("Q:", question)
+    print("Answer:", answer)
+    print("Sources:")
+    for c in chunks[:2]:
+        print("-", c["text"][:150])
+    print("-" * 80)
