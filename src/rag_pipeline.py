@@ -48,3 +48,12 @@ Question:
 
 Answer:"""
     return prompt
+
+# step 3
+from transformers import pipeline
+
+# Load local model pipeline
+qa_pipeline = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2", max_new_tokens=200)
+
+def generate_answer(prompt):
+    return qa_pipeline(prompt)[0]["generated_text"]
