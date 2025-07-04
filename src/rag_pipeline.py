@@ -57,3 +57,23 @@ qa_pipeline = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v
 
 def generate_answer(prompt):
     return qa_pipeline(prompt)[0]["generated_text"]
+
+#step 4
+
+test_questions = [
+    "Why are customers unhappy with Buy Now, Pay Later?",
+    "What are the major issues in credit card services?",
+    "What complaints are common in money transfers?"
+]
+
+for question in test_questions:
+    chunks = retrieve_relevant_chunks(question)
+    prompt = build_prompt(question, chunks)
+    answer = generate_answer(prompt)
+
+    print("Q:", question)
+    print("Answer:", answer)
+    print("Sources:")
+    for c in chunks[:2]:
+        print("-", c["text"][:150])
+    print("-" * 80)
