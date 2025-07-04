@@ -1,34 +1,67 @@
-# Tenx Complaint Analysis Chatbot (RAG)
+# Tenx Complaint Chatbot
 
-This project implements an intelligent complaint-answering chatbot for CrediTrust Financial using Retrieval-Augmented Generation (RAG).
+This project implements a Retrieval-Augmented Generation (RAG) based chatbot that helps analyze and summarize customer complaints from a dataset using LLMs. It is part of the 10 Academy Tenx Challenge.
 
-## 🚀 Objective
+## 💡 Project Objective
 
-Transform unstructured customer complaint data into an interactive question-answering chatbot to support product, support, and compliance teams.
+To build an intelligent chatbot that:
+- Accepts natural language queries related to financial complaints.
+- Retrieves relevant complaint snippets using vector search.
+- Generates coherent answers using a large language model (LLM).
 
-## 🧩 Tasks
+## 📁 Project Structure
 
-- **Task 1**: EDA and data preprocessing
-- **Task 2**: Text chunking, embedding & vector database indexing
-- **Task 3**: RAG pipeline for question answering
-- **Task 4**: Gradio/Streamlit UI for querying the chatbot
+```
+tenx-complaint-rag-chatbot/
+│
+├── data/
+│   └── complaints.csv            # Raw complaints dataset
+│
+├── src/
+│   ├── rag_pipeline.py          # Main RAG pipeline logic
+│   └── utils.py                 # Helper functions for retrieval and preprocessing
+│
+├── app.py                       # Gradio frontend
+├── requirements.txt             # Project dependencies
+└── README.md                    # This file
+```
 
-## 📂 Structure
+## ⚙️ How It Works
 
-- `data/`: Raw and cleaned data
-- `notebooks/`: Jupyter notebooks for EDA and analysis
-- `src/`: Python modules for chunking, embedding, retrieval
-- `vector_store/`: Persisted vector database
-- `reports/`: Interim and final reports
+1. **Preprocessing:** Complaints from `complaints.csv` are cleaned and chunked.
+2. **Embedding & Indexing:** Complaints are converted to embeddings and stored in a FAISS index.
+3. **Retrieval:** On receiving a user query, top-k similar complaint chunks are retrieved.
+4. **Generation:** A locally loaded LLM (e.g., TinyLlama) generates an answer based on the context.
+5. **Frontend:** Gradio UI allows users to interact with the chatbot.
 
-## 🔧 Tech Stack
+## 🧪 Sample Questions
+- What are common issues in money transfers?
+- What do users complain about credit cards?
+- Why are customers unhappy with Buy Now, Pay Later?
 
-- Python, Pandas, LangChain
-- Sentence Transformers
-- FAISS / ChromaDB
-- Gradio or Streamlit
+## 🚀 Running the App
 
-## 📅 Submissions
+```bash
+# Install dependencies
+pip install -r requirements.txt
 
-- **Interim**: Task 1 + Task 2
-- **Final**: Full pipeline with UI and report
+# Run the Gradio app
+python app.py
+```
+
+## 📷 Screenshots
+
+See the final report PDF for full screenshots and example queries.
+
+## 🧠 Model Info
+
+The chatbot uses the `TinyLlama/TinyLlama-1.1B-Chat-v1.0` model hosted on HuggingFace. Ensure your system supports MPS or CUDA for better performance.
+
+## 📌 Notes
+
+- Replace restricted models with accessible ones if needed (e.g., replace Mistral-7B with TinyLlama).
+- If running into gated repo errors, ensure you have appropriate Hugging Face permissions or use alternatives.
+
+## 📄 License
+
+MIT License
