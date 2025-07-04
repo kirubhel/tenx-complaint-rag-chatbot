@@ -32,3 +32,19 @@ def retrieve_relevant_chunks(question, k=5):
         })
     
     return retrieved_chunks
+
+
+def build_prompt(question, context_chunks):
+    context = "\n---\n".join([chunk["text"] for chunk in context_chunks])
+    prompt = f"""You are a financial analyst assistant for CrediTrust.
+Your task is to answer questions based on real customer complaints.
+Use only the context provided below. If unsure, say so.
+
+Context:
+{context}
+
+Question:
+{question}
+
+Answer:"""
+    return prompt
